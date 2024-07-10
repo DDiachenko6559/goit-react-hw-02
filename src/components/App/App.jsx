@@ -1,6 +1,7 @@
 import Description from "../Description/Description";
 import Feedback from "../Feedback/Feedback";
 import Options from "../Options/Options";
+import Notification from "../Notification/Notification";
 import { useState } from "react";
 
 const App = () => {
@@ -17,11 +18,34 @@ const App = () => {
     }));
   };
 
+  const resetFeedback = () => {
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
+
   return (
     <main>
       <Description />
-      <Options updateFeedback={updateFeedback} />
-      <Feedback options={feedback} />
+      <Options
+        updateFeedback={updateFeedback}
+        totalFeedback={totalFeedback}
+        resetFeedback={resetFeedback}
+      />
+      {totalFeedback > 0 ? (
+        <Feedback
+          options={feedback}
+          total={totalFeedback}
+          positive={positiveFeedback}
+        />
+      ) : (
+        <Notification />
+      )}
     </main>
   );
 };
