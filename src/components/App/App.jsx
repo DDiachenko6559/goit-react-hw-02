@@ -3,6 +3,7 @@ import Feedback from "../Feedback/Feedback";
 import Options from "../Options/Options";
 import Notification from "../Notification/Notification";
 import { useState, useEffect } from "react";
+import s from "./App.module.css";
 
 const INITIAL_FEEDBACK_STATE = {
   good: 0,
@@ -39,7 +40,7 @@ const App = () => {
   const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
 
   return (
-    <main>
+    <main className={s.app}>
       <Description />
       <Options
         updateFeedback={updateFeedback}
